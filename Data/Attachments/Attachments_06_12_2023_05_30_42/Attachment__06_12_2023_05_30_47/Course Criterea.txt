@@ -1,0 +1,15 @@
+Course Name: Jave
+Cost: 30 USD
+
+Course Name: RPA
+Cost: 20 EUR
+
+Course Name: C++
+Cost: 40 USD
+
+Course Name: C#
+Cost: 50 USD
+
+Course Name: C
+Cost: 25 USD
+

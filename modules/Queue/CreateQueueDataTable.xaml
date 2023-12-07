@@ -5,7 +5,7 @@
     <x:Property Name="in_AttachmentDataTable" Type="InArgument(sd:DataTable)" />
     <x:Property Name="out_QueueDT" Type="OutArgument(sd:DataTable)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>637,1644</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>654,1644</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -216,7 +216,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:AddDataColumn>
-      <ui:InvokeCode ContinueOnError="{x:Null}" Code="dt.AsEnumerable.Where(Function(row) row(&quot;Reference&quot;).ToString.Trim.Equals(&quot;&quot;)).ToList().ForEach(Sub(row) row(&quot;Reference&quot;) =row(&quot;Sender&quot;).ToString +&quot;_&quot;+str_MailDate+&quot;_&quot;+Now.ToString(&quot;dd_MM_yyyy_HH_mm_ss&quot;) +&quot;_&quot;+ (dt.Rows.IndexOf(row)+1).ToString )" DisplayName="Invoke Code Add Reference " sap:VirtualizedContainerService.HintSize="434,165" sap2010:WorkflowViewState.IdRef="InvokeCode_5">
+      <ui:InvokeCode ContinueOnError="{x:Null}" Code="dt.AsEnumerable.Where(Function(row) row(&quot;Reference&quot;).ToString.Trim.Equals(&quot;&quot;)).ToList().ForEach(Sub(row) row(&quot;Reference&quot;) =row(&quot;Sender&quot;).ToString +&quot;_&quot;+str_MailDate+&quot;_&quot;+Now.ToString(&quot;dd_MM_yyyy_HH_mm_ss&quot;) +&quot;_&quot;+ (dt.Rows.IndexOf(row)+1).ToString+&quot;_&quot;+row(&quot;Course Name&quot;).ToString )" DisplayName="Invoke Code Add Reference " sap:VirtualizedContainerService.HintSize="434,165" sap2010:WorkflowViewState.IdRef="InvokeCode_5">
         <ui:InvokeCode.Arguments>
           <InArgument x:TypeArguments="sd:DataTable" x:Key="dt">[out_QueueDT]</InArgument>
           <InArgument x:TypeArguments="x:String" x:Key="str_MailDate">[str_Mail.Split(vbNewLine)(2)]</InArgument>

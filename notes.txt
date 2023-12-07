@@ -1,9 +1,9 @@
-﻿MailId 
-Sender.Address
-Headers("date").ToString("dd_MM_yyyy_HH_mm_ss")
-Subject.ToString 
-Sender.ToString
-
+﻿currentMail.Headers("UID").ToString+vbNewLine + 
+currentMail.Sender.Address.ToString + vbNewLine +
+CDate( currentMail.Headers("date") ).ToString("dd_MM_yyyy_HH_mm_ss")+ vbNewLine+
+currentMail.Subject.ToString + vbNewLine + 
+currentMail.Sender.Address.ToString+vbNewLine + 
+currentMail.Headers("Message-ID").ToString
 
 
 BusinessRuleException Cases:
@@ -20,3 +20,6 @@ C7: Cost Filed Not Add As Mentioned In Description File --> ':' Not Found
 C8: Cost Value Not Found --> Course Name Value Not Found
 C9: Cost Value Is Not A Number --> Cost value can't be cast to number
 C10: Currency Value Not Found
+
+
+

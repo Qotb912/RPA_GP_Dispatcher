@@ -3,7 +3,7 @@
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
     <x:Property Name="in_MailsList" Type="InArgument(scg:List(snm:MailMessage))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>675,2482</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>675,2585</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -111,7 +111,7 @@
       <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="685,2417" sap2010:WorkflowViewState.IdRef="Sequence_7">
+  <Sequence sap2010:Annotation.AnnotationText="This Sequence Create Folder Attachments in Data Folder If Not Exists &#xD;&#xA;  &#xD;&#xA;" sap:VirtualizedContainerService.HintSize="685,2520" sap2010:WorkflowViewState.IdRef="Sequence_7">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Default="Save Attachments" Name="strSeqName" />
       <Variable x:TypeArguments="s:DateTime" Default="[System.DateTime.Now]" Name="tSeqStartTime" />
@@ -119,6 +119,7 @@
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="utilities\SequenceTrace.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="623,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="utilities\SequenceTrace.xaml">
@@ -164,23 +165,29 @@
           </Sequence>
         </If.Then>
         <If.Else>
-          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_10" />
-        </If.Else>
-      </If>
-    </Sequence>
-    <ui:ForEach x:TypeArguments="snm:MailMessage" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="623,1624" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_MailsList]">
-      <ui:ForEach.Body>
-        <ActivityAction x:TypeArguments="snm:MailMessage">
-          <ActivityAction.Argument>
-            <DelegateInArgument x:TypeArguments="snm:MailMessage" Name="currentMail" />
-          </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="589,1438" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence sap:VirtualizedContainerService.HintSize="300,80" sap2010:WorkflowViewState.IdRef="Sequence_10">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:IfElseIf DisplayName="Check if Attachment Exist or not" sap:VirtualizedContainerService.HintSize="547,1350" sap2010:WorkflowViewState.IdRef="IfElseIf_1">
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+    <ui:ForEach x:TypeArguments="snm:MailMessage" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="623,1625" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_MailsList]">
+      <ui:ForEach.Body>
+        <ActivityAction x:TypeArguments="snm:MailMessage">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="snm:MailMessage" Name="currentMail" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="589,1439" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:IfElseIf DisplayName="Check if Attachment Exist or not" sap:VirtualizedContainerService.HintSize="547,1351" sap2010:WorkflowViewState.IdRef="IfElseIf_1">
               <ui:IfElseIf.ConditionBlocks>
                 <sc:BindingList x:TypeArguments="ui:IfElseIfBlock" AllowEdit="True" AllowNew="True" AllowRemove="True" RaiseListChangedEvents="True">
                   <ui:IfElseIfBlock BlockType="If" Condition="[currentMail.Attachments.Where(function(e) e.Name like in_Config(&quot;FilterAttachmentName&quot;).ToString).Count &gt; 0]">
@@ -222,7 +229,8 @@
 currentMail.Sender.Address.ToString + vbNewLine +
 CDate( currentMail.Headers("date") ).ToString("dd_MM_yyyy_HH_mm_ss")+ vbNewLine+
 currentMail.Subject.ToString + vbNewLine + 
-currentMail.Sender.Address.ToString]</InArgument>
+currentMail.Sender.Address.ToString+vbNewLine + 
+currentMail.Headers("Message-ID").ToString]</InArgument>
                           </Assign.Value>
                         </Assign>
                         <ui:WriteTextFile File="{x:Null}" DisplayName="Write Text File" FileName="[str_AttachmentPath+&quot;/maildata.txt&quot;]" sap:VirtualizedContainerService.HintSize="434,133" sap2010:WorkflowViewState.IdRef="WriteTextFile_3" Text="[str_FileData]" />
@@ -246,7 +254,7 @@ currentMail.Sender.Address.ToString]</InArgument>
                             <x:Boolean x:Key="IsPinned">False</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Throw DisplayName="Throw exception attachment not exists " Exception="[New BusinessRuleException(&quot;C1: Attachment file &quot;+in_Config(&quot;FilterAttachmentName&quot;).ToString +&#xD;&#xA;&quot; not exist this mail seneded by&quot;+&#xD;&#xA;currentMail.Sender.ToString +&quot;at &quot;+currentMail.Headers(&quot;date&quot;).ToString +&quot;.&quot; )]" sap:VirtualizedContainerService.HintSize="388,90" sap2010:WorkflowViewState.IdRef="Throw_1">
+                        <Throw DisplayName="Throw exception attachment not exists " Exception="[New BusinessRuleException(&quot;C1: Attachment file &quot;+in_Config(&quot;FilterAttachmentName&quot;).ToString +&#xA;&quot; not exist this mail seneded by&quot;+&#xA;currentMail.Sender.ToString +&quot;at &quot;+currentMail.Headers(&quot;date&quot;).ToString +&quot;.&quot; )]" sap:VirtualizedContainerService.HintSize="388,90" sap2010:WorkflowViewState.IdRef="Throw_1">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>

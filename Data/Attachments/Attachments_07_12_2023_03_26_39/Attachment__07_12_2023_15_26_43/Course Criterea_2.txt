@@ -1,0 +1,5 @@
+Course Name: Jave
+Cost: 310 USD
+
+Course Name: RPA
+Cost: 220 EUR
